@@ -1,0 +1,9 @@
+coverage_service: cobertura_xml
+xcodeproj: ProcedureKit.xcodeproj
+build_directory: .ci/xcodebuild-data/
+source_directory: Sources
+output_directory: .ci/results/coverage
+ignore:
+  - Documentation/
+  - Integrations/
+  - Tests/

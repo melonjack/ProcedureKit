@@ -8,6 +8,7 @@ steps:
     automatic: true
   artifact_paths:
     - ".ci/results/xcodebuild.log"
+    - ".ci/xcodebuild-data/Build/Logs/Test/*.xcovreport"    
   agents:
     queue: "stress-tests"
     xcode: "$XCODE"
@@ -18,6 +19,7 @@ steps:
     automatic: true
   artifact_paths:
     - ".ci/results/xcodebuild.log"
+    - ".ci/xcodebuild-data/Build/Logs/Test/*.xcovreport"    
   agents:
     xcode: "$XCODE"
 -
@@ -27,6 +29,7 @@ steps:
     automatic: true
   artifact_paths:
     - ".ci/results/xcodebuild.log"
+    - ".ci/xcodebuild-data/Build/Logs/Test/*.xcovreport"    
   agents:
     queue: "iOS-Simulator"
     xcode: "$XCODE"
@@ -37,6 +40,7 @@ steps:
     automatic: true
   artifact_paths:
     - ".ci/results/xcodebuild.log"
+    - ".ci/xcodebuild-data/Build/Logs/Test/*.xcovreport"
   agents:
     queue: "iOS-Simulator"
     xcode: "$XCODE"
@@ -49,11 +53,24 @@ steps:
   agents:
     queue: "iOS-Simulator"
     xcode: "$XCODE"
-YAML
-
-cat <<-YAML
 
 - wait
+
+-
+  name: "Slather"
+  command: "slather --scheme iOS"
+  artifact_paths:
+    - ".ci/results/coverage"
+    - ".ci/xcodebuild-data/Build/Logs/Test/*.xcovreport"
+
+-
+  command: "Report Code Climate Test Coverage"
+  label: ":codeclimate: Report Coverage"
+  plugins:
+    jobready/codeclimate-test-reporter#v2.0:
+      artifacts: ".ci/results/coverage"
+      input_type: "cobertura"
+
 
 YAML
 
