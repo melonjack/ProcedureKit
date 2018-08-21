@@ -58,7 +58,7 @@ steps:
 
 -
   name: "Slather"
-  command: "slather --scheme iOS"
+  command: ".ci/scripts/slather"
   artifact_paths:
     - ".ci/results/coverage"
     - ".ci/xcodebuild-data/Build/Logs/Test/*.xcovreport"

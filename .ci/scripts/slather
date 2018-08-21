@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+set +u
+source /usr/local/opt/chruby/share/chruby/chruby.sh
+chruby ruby
+set -u
+
+bundle install --quiet
+
+echo "--- slather"
+bundle exec slather --scheme iOS
