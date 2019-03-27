@@ -403,9 +403,9 @@ open class ProcedureQueue: OperationQueue {
         static func ==(lhs: ExclusivityLockTicket, rhs: ExclusivityLockTicket) -> Bool {
             return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
         }
-        var hashValue: Int {
-            return ObjectIdentifier(self).hashValue
-        }
+      func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+      }
     }
 
     /// Requests a Mutual Exclusivity lock for a set of categories, taking into account
