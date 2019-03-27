@@ -10,6 +10,8 @@ public protocol ProcedureProtocol: class {
 
     var procedureName: String { get }
 
+    var status: ProcedureStatus { get }
+
     var isExecuting: Bool { get }
 
     var isFinished: Bool { get }
@@ -32,17 +34,17 @@ public protocol ProcedureProtocol: class {
 
     // Cancelling
 
-    func cancel(with: Error?)
+    func cancel(with error: Error?)
 
-    func procedureDidCancel(with: Error?)
+    func procedureDidCancel(with error: Error?)
 
     // Finishing
 
-    func finish(with: Error?)
+    func finish(with error: Error?)
 
-    func procedureWillFinish(with: Error?)
+    func procedureWillFinish(with error: Error?)
 
-    func procedureDidFinish(with: Error?)
+    func procedureDidFinish(with error: Error?)
 
     // Observers
 
@@ -75,15 +77,16 @@ public protocol ProcedureProtocol: class {
 /// Default ProcedureProtocol implementations
 public extension ProcedureProtocol {
 
+    /// Boolean indicator for whether the Procedure finished with an error
     var failed: Bool {
         return error != nil
     }
 
-    func procedureDidCancel(with: Error?) { }
+    func procedureDidCancel(with error: Error?) { }
 
-    func procedureWillFinish(with: Error?) { }
+    func procedureWillFinish(with error: Error?) { }
 
-    func procedureDidFinish(with: Error?) { }
+    func procedureDidFinish(with error: Error?) { }
 
     // Deprecations
 
